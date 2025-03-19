@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    text-align: left;
+}
+
+img {
+    width: 30px; 
+    height: auto;
+    vertical-align: middle;
+}
