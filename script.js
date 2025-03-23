@@ -15,6 +15,17 @@ document.addEventListener("DOMContentLoaded", function () {
         userData.nama = document.getElementById("nama").value.trim();
         userData.jumlah = parseInt(document.getElementById("jumlah").value) || 0;
         
+        document.getElementById("nama").disabled = true;
+        document.getElementById("jumlah").disabled = true;
+        document.getElementById("ok-button").disabled = true;
+        document.getElementById("nama").style.opacity = "0.5";
+        document.getElementById("jumlah").style.opacity = "0.5";
+        document.getElementById("ok-button").style.opacity = "0.5";
+        document.getElementById("ok-button").style.pointerEvents = "none";
+        document.getElementById("judul-awal").style.color = "gray";
+        document.getElementById("label-nama").style.color = "gray";
+        document.getElementById("label-jumlah").style.color = "gray";
+
         let pilihanHTML = `<div id="pilihan-container">
             <h2>Masukkan Pilihan</h2>
         `;
@@ -33,6 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
             userData.pilihan.push(value);
         }
         
+        document.getElementById("pilihan-container").style.opacity = "0.5";
+        document.getElementById("pilihan-container").style.pointerEvents = "none";
+        document.getElementById("pilihan-container").style.color = "gray";
+
         let selectionHTML = `<div id="selection-container">
             <h2>Pilih Salah Satu</h2>
         `;
@@ -48,6 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
     window.showResult = function () {
         const pilihanTerpilih = document.getElementById("dropdown").value;
         
+        document.getElementById("selection-container").style.opacity = "0.5";
+        document.getElementById("selection-container").style.pointerEvents = "none";
+        document.getElementById("selection-container").style.color = "gray";
+
         let hasil = `Hallo, nama saya ${userData.nama}, saya mempunyai sejumlah ${userData.jumlah} pilihan yaitu `;
         hasil += userData.pilihan.join(", ");
         hasil += `, dan saya memilih ${pilihanTerpilih}`;
