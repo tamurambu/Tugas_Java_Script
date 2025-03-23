@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const formContainer = document.getElementById("form-container");
+    const alphabetRegex = /^[A-Za-z\s]+$/; 
     let userData = { nama: "", jumlah: 0, pilihan: [] };
     
     function createInitialForm() {
@@ -13,7 +14,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.generateChoiceInputs = function () {
         userData.nama = document.getElementById("nama").value.trim();
-        userData.jumlah = parseInt(document.getElementById("jumlah").value) || 0;
+        userData.jumlah = parseInt(document.getElementById("jumlah").value);
+       if (!userData.nama) {
+        alert("Nama tidak boleh kosong.");
+        return;
+    }
+    if (!alphabetRegex.test(userData.nama)) {
+        alert("Nama hanya boleh berisi huruf alfabet (A-Z atau a-z) dan spasi.");
+        return;
+    }
+    if (userData.jumlah < 1 || isNaN(userData.jumlah)) {
+        alert("Jumlah harus lebih dari 0 dan tidak boleh kosong.");
+        return;
+        }
         
         document.getElementById("nama").disabled = true;
         document.getElementById("jumlah").disabled = true;
@@ -41,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
         userData.pilihan = [];
         for (let i = 1; i <= userData.jumlah; i++) {
             let value = document.getElementById(`pilihan${i}`).value.trim();
+            if (!value) {
+                alert("Semua pilihan harus diisi dan tidak boleh kosong");
+                return;
+            }
             userData.pilihan.push(value);
         }
         
@@ -62,14 +79,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.showResult = function () {
         const pilihanTerpilih = document.getElementById("dropdown").value;
-        
+        if (!pilihanTerpilih) {
+            alert("Pilih salah satu opsi");
+            return;
+        }
+
         document.getElementById("selection-container").style.opacity = "0.5";
         document.getElementById("selection-container").style.pointerEvents = "none";
         document.getElementById("selection-container").style.color = "gray";
 
         let hasil = `Hallo, nama saya ${userData.nama}, saya mempunyai sejumlah ${userData.jumlah} pilihan yaitu `;
         hasil += userData.pilihan.join(", ");
-        hasil += `, dan saya memilih ${pilihanTerpilih}`;
+        hasil += `, dan saya memilih ${pilihanTerpilih}`,'.';
         
         formContainer.innerHTML += `<h2>Hasil</h2><p>${hasil}</p>`;
     };
